@@ -20,6 +20,15 @@
     "require": {
         "ext-openssl": "*",
         "ext-json": "*",
-        "ext-simplexml": "*"
+        "ext-simplexml": "*",
+        "guzzlehttp/guzzle": "*",
+        "intervention/image": "*",
+        "simplesoftwareio/simple-qrcode": "*",
+        "qiniu/php-sdk": "*",
+        "symfony/css-selector": "*",
+        "symfony/dom-crawler": "*",
+        "w7corp/easywechat": "*",
+        "yansongda/pay": "*",
+        "overtrue/easy-sms": "*"
     }
 }

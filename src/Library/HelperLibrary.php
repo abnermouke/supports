@@ -2,7 +2,7 @@
 
 namespace Abnermouke\Supports\Library;
 
-use Abnermouke\Supports\Modules\Arr;
+use Abnermouke\Supports\Assists\Arr;
 
 /**
  * 通用辅助方法藏类
@@ -477,7 +477,7 @@ class HelperLibrary
      * @Author Abnermouke <abnermouke@outlook.com | yunnitec@outlook.com>
      * @Originate in YunniTec <https://www.yunnitec.com/>
      * @Time 2023-04-18 00:03:09
-     * @param $amount int 金额
+     * @param $amount int 金额（建议金额单位为分）
      * @param $decimal int 保留几位小数
      * @param $ratio int 倍数
      * @return string
@@ -485,6 +485,21 @@ class HelperLibrary
     public static function convertAmount($amount, $decimal = 2, $ratio = 100)
     {
         return sprintf('%.'.(int)$decimal.'f', ($ratio > 0 ? (int)$amount/$ratio : $amount));
+    }
+
+    /**
+     * 计算金额百分比
+     * @Author Abnermouke <abnermouke@outlook.com | yunnitec@outlook.com>
+     * @Originate in YunniTec <https://www.yunnitec.com/>
+     * @Time 2023-04-18 22:12:17
+     * @param $amount int 金额（建议金额单位为分）
+     * @param $percent float 指定百分比
+     * @param $ratio int 倍数
+     * @return int
+     */
+    public static function computePercentAmount($amount, $percent = 50, $ratio = 0)
+    {
+        return (int)(floor($amount * $percent / $ratio));
     }
 
     /**
@@ -528,9 +543,6 @@ class HelperLibrary
         //替换无效字符并返回
         return str_replace(['+', '/'], ['-', '_'], $md5_b64_str);
     }
-
-
-
 
 
 
