@@ -174,4 +174,40 @@ class Arr
         }
     }
 
+    /**
+     * 获取第一项
+     * @Author Abnermouke <abnermouke@outlook.com | yunnitec@outlook.com>
+     * @Originate in YunniTec <https://www.yunnitec.com/>
+     * @Time 2023-04-20 14:53:14
+     * @param $array array 数组集合
+     * @param $default mixed 默认返回数据
+     * @return mixed|null
+     */
+    public static function first($array, $default = null)
+    {
+        if (empty($array)) {
+            return $default;
+        }
+
+        foreach ($array as $item) {
+            return $item;
+        }
+
+        return $default;
+    }
+
+    /**
+     * 获取最后一项
+     * @Author Abnermouke <abnermouke@outlook.com | yunnitec@outlook.com>
+     * @Originate in YunniTec <https://www.yunnitec.com/>
+     * @Time 2023-04-20 14:54:19
+     * @param $array array 数组集合
+     * @param $default mixed 默认返回数据
+     * @return false|mixed|null
+     */
+    public static function last($array, $default = null)
+    {
+        return empty($array) ? $default : end($array);
+    }
+
 }

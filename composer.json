@@ -29,6 +29,14 @@
         "symfony/dom-crawler": "*",
         "w7corp/easywechat": "*",
         "yansongda/pay": "*",
-        "overtrue/easy-sms": "*"
+        "overtrue/easy-sms": "*",
+        "illuminate/events": "*",
+        "illuminate/database": "*"
+    },
+    "scripts": {
+        "post-install-cmd": [
+            "php -r \"file_exists('config/orm_database.php') || copy('vendor/abnermouke/supports/config/orm_database.php', 'config/orm_database.php');\"",
+            "php -r \"file_exists('public/static/avatars/1.png') || copy('vendor/abnermouke/supports/data/avatars', 'public/static/avatars');\""
+        ]
     }
 }

@@ -3,6 +3,7 @@
 namespace Abnermouke\Supports\Library;
 
 use Abnermouke\Supports\Assists\Arr;
+use Abnermouke\Supports\Assists\Str;
 
 /**
  * 通用辅助方法藏类
@@ -345,7 +346,7 @@ class HelperLibrary
         //整理开头信息
         $yCode = array('A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J');
         //整理订单编号
-        return $yCode[intval(date('Y')) - 2017] . strtoupper(dechex(date('m'))) . date('d') . substr(time(), -5) . substr(microtime(), 2, 5) . sprintf('%02d', rand(1000, 9999)).strtoupper(\Illuminate\Support\Str::random(4));
+        return $yCode[intval(date('Y')) - 2017] . strtoupper(dechex(date('m'))) . date('d') . substr(time(), -5) . substr(microtime(), 2, 5) . sprintf('%02d', rand(1000, 9999)).strtoupper(Str::random(4));
     }
 
     /**
@@ -545,6 +546,10 @@ class HelperLibrary
     }
 
 
+    public function randomAvatar($public_path)
+    {
+        //获取全部文件
+    }
 
 
 
