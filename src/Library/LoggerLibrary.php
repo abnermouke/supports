@@ -76,7 +76,7 @@ class LoggerLibrary
         //追加内容
         $contents[] = "============================ BEGIN ".$sn." =========================";
         //设置内容
-        $contents[] = HelperLibrary::formatDatetime()." [".strtoupper($alias)."]  ".(is_array($content) ? json_encode($content, JSON_UNESCAPED_UNICODE) : $content);
+        $contents[] = HelperLibrary::formatDateTime()." [".strtoupper($alias)."]  ".(is_array($content) ? json_encode($content, JSON_UNESCAPED_UNICODE) : $content);
         //设置结束
         $contents[] = "============================ END ".$sn." ===========================";
         //追加换行符

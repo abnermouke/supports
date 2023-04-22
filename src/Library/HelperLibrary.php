@@ -3,6 +3,8 @@
 namespace Abnermouke\Supports\Library;
 
 use Abnermouke\Supports\Assists\Arr;
+use Abnermouke\Supports\Assists\File;
+use Abnermouke\Supports\Assists\Path;
 use Abnermouke\Supports\Assists\Str;
 
 /**
@@ -245,21 +247,6 @@ class HelperLibrary
     }
 
     /**
-     * URL特殊字符处理
-     * @Author Abnermouke <abnermouke@outlook.com | yunnitec@outlook.com>
-     * @Originate in YunniTec <https://www.yunnitec.com/>
-     * @Time 2023-04-17 23:37:53
-     * @param $url string URL链接
-     * @return string
-     */
-    public static function encodeURIComponent($url) {
-        //初始化默认字段
-        $revert = array('%21'=>'!', '%2A'=>'*', '%27'=>"'", '%28'=>'(', '%29'=>')');
-        //处理信息
-        return strtr(rawurlencode($url), $revert);
-    }
-
-    /**
      * 获取指定格式时间
      * @Author Abnermouke <abnermouke@outlook.com | yunnitec@outlook.com>
      * @Originate in YunniTec <https://www.yunnitec.com/>
@@ -268,7 +255,7 @@ class HelperLibrary
      * @param $format string 指定格式
      * @return false|string
      */
-    public static function formatDatetime($time = false, $format = 'Y-m-d H:i:s') {
+    public static function formatDateTime($time = false, $format = 'Y-m-d H:i:s') {
         //返回指定格式时间
         return date($format, static::getTimestamp($time));
     }
@@ -544,13 +531,6 @@ class HelperLibrary
         //替换无效字符并返回
         return str_replace(['+', '/'], ['-', '_'], $md5_b64_str);
     }
-
-
-    public function randomAvatar($public_path)
-    {
-        //获取全部文件
-    }
-
 
 
 }
