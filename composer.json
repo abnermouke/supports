@@ -30,16 +30,9 @@
         "yansongda/pay": "*",
         "overtrue/easy-sms": "*",
         "illuminate/events": "*",
-        "illuminate/container": "*",
         "illuminate/database": "*"
     },
     "scripts": {
-        "post-update-cmd": [
-            "Abnermouke\\Supports\\AbnermoukeSupportsEvents::updated"
-        ],
-        "post-install-cmd": [
-            "Abnermouke\\Supports\\AbnermoukeSupportsEvents::installed"
-        ],
         "post-autoload-dump": [
             "Abnermouke\\Supports\\AbnermoukeSupportsEvents::autoload"
         ]
