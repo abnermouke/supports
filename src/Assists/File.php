@@ -387,7 +387,7 @@ class File
      * @param $path
      * @return array
      */
-    public function infos($path)
+    public static function infos($path)
     {
         //整理文件信息
         return [

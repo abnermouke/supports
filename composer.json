@@ -27,15 +27,22 @@
         "qiniu/php-sdk": "*",
         "symfony/css-selector": "*",
         "symfony/dom-crawler": "*",
+        "w7corp/easywechat": "*",
         "yansongda/pay": "*",
         "overtrue/easy-sms": "*",
         "illuminate/events": "*",
+        "illuminate/container": "*",
         "illuminate/database": "*"
     },
     "scripts": {
+        "post-update-cmd": [
+            "Abnermouke\\Supports\\AbnermoukeSupportsEvents::updated"
+        ],
         "post-install-cmd": [
-            "php -r \"file_exists('config/orm_database.php') || copy('vendor/abnermouke/supports/config/orm_database.php', 'config/orm_database.php');\"",
-            "php -r \"file_exists('public/static/avatars/1.png') || copy('vendor/abnermouke/supports/data/avatars', 'public/static/avatars');\""
+            "Abnermouke\\Supports\\AbnermoukeSupportsEvents::installed"
+        ],
+        "post-autoload-dump": [
+            "Abnermouke\\Supports\\AbnermoukeSupportsEvents::autoload"
         ]
     }
 }
