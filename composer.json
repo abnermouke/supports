@@ -27,7 +27,6 @@
         "qiniu/php-sdk": "*",
         "symfony/css-selector": "*",
         "symfony/dom-crawler": "*",
-        "w7corp/easywechat": "*",
         "yansongda/pay": "*",
         "overtrue/easy-sms": "*",
         "illuminate/events": "*",
