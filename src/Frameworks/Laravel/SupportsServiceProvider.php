@@ -19,17 +19,17 @@ class SupportsServiceProvider extends ServiceProvider
     public function register()
     {
         //引入配置
-        $this->app->singleton('command.generate.package', function ($app) {
+        $this->app->singleton('command.builder.package', function ($app) {
             //返回实例
             return new PackageCommands($app['config']['builder']);
         });
         //引入配置
-        $this->app->singleton('command.generate.supports', function ($app) {
+        $this->app->singleton('command.builder.supports', function ($app) {
             //返回实例
             return new SupportsCommands($app['config']);
         });
         //引入配置
-        $this->app->singleton('command.generate.interface', function ($app) {
+        $this->app->singleton('command.builder.interface', function ($app) {
             //返回实例
             return new InterfaceCommands($app['config']['builder']);
         });

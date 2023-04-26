@@ -1,6 +1,6 @@
 <?php
 
-namespace Abnermouke\Frameworks\Laravel\Middlewares;
+namespace App\Http\Middleware\Abnermouke;
 
 use Closure;
 use Illuminate\Http\Request;
@@ -13,7 +13,7 @@ class BaseSupportsMiddleware
      * @Author Abnermouke <abnermouke@outlook.com | yunnitec@outlook.com>
      * @Originate in YunniTec <https://www.yunnitec.com/>
      * @Time 2023-04-26 14:35:17
-     * @param $request
+     * @param $request Request
      * @param Closure $next
      * @return mixed
      */

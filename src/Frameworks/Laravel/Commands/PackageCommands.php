@@ -18,7 +18,7 @@ class PackageCommands extends Command
      * 命令结构
      * @var string
      */
-    protected $signature = 'generate:package {name} {--desc=} {--dictionary=} {--dp=} {--dc=} {--dcs=} {--de=} {--cd=} {--migration} {--cache} {--fcp}';
+    protected $signature = 'builder:package {name} {--desc=} {--dictionary=} {--dp=} {--dc=} {--dcs=} {--de=} {--cd=} {--migration} {--cache} {--fcp}';
 
     /**
      * 命令备注

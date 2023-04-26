@@ -18,7 +18,7 @@ class SupportsCommands extends Command
      *
      * @var string
      */
-    protected $signature = 'generate:supports';
+    protected $signature = 'builder:supports';
 
     /**
      * The console command description.

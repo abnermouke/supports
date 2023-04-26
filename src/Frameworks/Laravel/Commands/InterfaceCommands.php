@@ -17,7 +17,7 @@ class InterfaceCommands extends Command
      *
      * @var string
      */
-    protected $signature = 'generate:interface {name} {--desc=} {--dictionary=} {--package_dictionary=} {--ccf}';
+    protected $signature = 'builder:interface {name} {--desc=} {--dictionary=} {--package_dictionary=} {--ccf}';
 
     /**
      * The console command description.
