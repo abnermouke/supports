@@ -1,0 +1,38 @@
+{
+    "name": "abnermouke/supports",
+    "description": "Supports是Abnermouke整理的PHP开源工具包，安装非常简单，因为它是一个标准的Composer包，这意味着只要使用的是PHP都可以正常使用它。",
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Abnermouke\\Supports\\": "src/"
+        },
+        "files": [
+            "helpers/data.php"
+        ]
+    },
+    "authors": [
+        {
+            "name": "abnermouke",
+            "email": "abnermouke@outlook.com"
+        }
+    ],
+    "require": {
+        "ext-openssl": "*",
+        "ext-json": "*",
+        "ext-simplexml": "*",
+        "guzzlehttp/guzzle": "*",
+        "intervention/image": "*",
+        "simplesoftwareio/simple-qrcode": "*",
+        "qiniu/php-sdk": "*",
+        "symfony/css-selector": "*",
+        "symfony/dom-crawler": "*",
+        "yansongda/pay": "*",
+        "overtrue/easy-sms": "*"
+    },
+    "scripts": {
+        "post-autoload-dump": [
+            "Abnermouke\\Supports\\AbnermoukeSupportsEvents::autoload"
+        ]
+    }
+}
