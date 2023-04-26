@@ -9,7 +9,7 @@
 
 namespace App\Interfaces{__DICTIONARY__}\Services;
 
-use Abnermouke\Frameworks\Laravel\Modules\BaseService;
+use Abnermouke\Supports\Frameworks\Laravel\Modules\BaseService;
 
 /**
  * {__DATA_NAME__}接口逻辑服务容器

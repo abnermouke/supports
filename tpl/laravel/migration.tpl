@@ -1,13 +1,13 @@
 <?php
 /**
- * Power by abnermouke/easy-builder.
+ * Power by abnermouke/supports.
  * User: {__AUTHOR__} <{__AUTHOR_CONTACT_EMAIL}>
  * Originate in {__ORIGINATE__}
  * Date: {__DATE__}
  * Time: {__TIME__}
 */
 
-use App\Model{__DICTIONARY__}\{__CASE_NAME__};
+use App\Models{__DICTIONARY__}\{__CASE_NAME__};
 use App\Repository{__DICTIONARY__}\{__LOWER_CASE_NAME__}Repository;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;

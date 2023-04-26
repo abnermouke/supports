@@ -1,6 +1,6 @@
 <?php
 
-namespace Abnermouke\Frameworks\Laravel\Commands;
+namespace Abnermouke\Supports\Frameworks\Laravel\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\File;

@@ -1,15 +1,15 @@
 <?php
 /**
- * Power by abnermouke/easy-builder.
+ * Power by abnermouke/supports.
  * User: {__AUTHOR__} <{__AUTHOR_CONTACT_EMAIL}>
  * Originate in {__ORIGINATE__}
  * Date: {__DATE__}
  * Time: {__TIME__}
 */
 
-namespace App\Model{__DICTIONARY__};
+namespace App\Models{__DICTIONARY__};
 
-use Abnermouke\Frameworks\Laravel\Modules\BaseModel;
+use Abnermouke\Supports\Frameworks\Laravel\Modules\BaseModel;
 
 /**
  * {__TABLE_NAME__}

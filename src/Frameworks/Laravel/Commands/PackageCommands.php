@@ -1,6 +1,6 @@
 <?php
 
-namespace Abnermouke\Frameworks\Laravel\Commands;
+namespace Abnermouke\Supports\Frameworks\Laravel\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Arr;
@@ -265,14 +265,14 @@ class PackageCommands extends Command
     private function makeModel()
     {
         //整理目录
-        $modelDirectory = app_path('Model'.str_replace('\\', '/', $this->tplParams['__DICTIONARY__']));
+        $modelDirectory = app_path('Models'.str_replace('\\', '/', $this->tplParams['__DICTIONARY__']));
         //判断目录是否存在
         if (!File::isDirectory($modelDirectory)) {
             //创建目录
             File::makeDirectory($modelDirectory, 0777, true, true);
         }
         //整理路径
-        $modelPath = app_path('Model'.str_replace('\\', '/', $this->tplParams['__DICTIONARY__']).'/'.$this->tplParams['__CASE_NAME__'].'.php');
+        $modelPath = app_path('Models'.str_replace('\\', '/', $this->tplParams['__DICTIONARY__']).'/'.$this->tplParams['__CASE_NAME__'].'.php');
         //判断文件地址
         if (file_exists($modelPath) && !$this->option('fcp') && !$this->confirm('数据模型 ['.$modelPath.'] 已存在，是否覆盖写入？')) {
             //直接返回

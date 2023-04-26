@@ -1,6 +1,6 @@
 <?php
 
-namespace Abnermouke\Frameworks\Laravel\Modules;
+namespace Abnermouke\Supports\Frameworks\Laravel\Modules;
 
 use Abnermouke\Frameworks\Laravel\Modules\BaseModel;
 use Abnermouke\Supports\Assists\Arr;

@@ -11,7 +11,7 @@ namespace App\Interfaces{__DICTIONARY__}\Controllers;
 
 use App\Interfaces{__DICTIONARY__}\Services\{__LOWER_CASE_NAME__}InterfaceService;
 use Illuminate\Http\Request;
-use Abnermouke\Frameworks\Laravel\Modules\BaseController;
+use Abnermouke\Supports\Frameworks\Laravel\Modules\BaseController;
 
 /**
  * {__DATA_NAME__}基础控制器

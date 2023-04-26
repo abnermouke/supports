@@ -5,20 +5,8 @@
  * Originate: YunniTec <https://www.yunnitec.com/>
  */
 
-use Abnermouke\EasyBuilder\Library\CodeLibrary;
 
 if (!function_exists('responseService')) {
-    /**
-     *
-     * @Author Abnermouke <abnermouke@outlook.com>
-     * @Originate in Company Yunnitec.
-     * @Time 2020-06-03 11:27:37
-     * @param $service \Abnermouke\Frameworks\Laravel\Modules\BaseService 逻辑服务对象
-     * @param string $format 返回类型
-     * @param string $callback 回调信息
-     * @return \Illuminate\Http\JsonResponse
-     * @throws \Exception
-     */
     /**
      * 响应逻辑服务结果
      * @Author Abnermouke <abnermouke@outlook.com | yunnitec@outlook.com>
@@ -60,14 +48,14 @@ if (!function_exists('responseError')) {
     function responseError($code, $data = [], $msg = '', $extra = [], $format = 'json', $callback = '')
     {
         //判断提示信息
-        if (!$msg || empty($msg)) {
+        if (!empty($msg)) {
             //根据状态码获取提示信息
             $msg = '[ERROR:'.(int)$code.']';
         }
         //判断是否存在验证错误
         if (data_get($extra, 'validations', false)) {
             //设置错误
-            $code = \Abnermouke\EasyBuilder\Library\CodeLibrary::VALIDATE_FAILED;
+            $code = \Abnermouke\Supports\Library\CodeLibrary::VALIDATE_FAILED;
         }
         //响应返回信息
         return responseReturn((int)$code, $msg, $data, $extra, $format, $callback);
@@ -91,7 +79,7 @@ if (!function_exists('responseSuccess')) {
     function responseSuccess($data = [], $msg = '', $extra = [], $format = 'json', $callback = '')
     {
         //响应返回信息
-        return responseReturn(\Abnermouke\EasyBuilder\Library\CodeLibrary::CODE_SUCCESS, $msg, $data, $extra, $format, $callback);
+        return responseReturn(\Abnermouke\Supports\Library\CodeLibrary::CODE_SUCCESS, $msg, $data, $extra, $format, $callback);
     }
 }
 
@@ -112,7 +100,7 @@ if (!function_exists('responseReturn')) {
     function responseReturn($code, $msg, $data, $extra = [], $format = 'json', $callback = '')
     {
         //默认处理状态
-        $state = (int)$code === CodeLibrary::CODE_SUCCESS;
+        $state = (int)$code === \Abnermouke\Supports\Library\CodeLibrary::CODE_SUCCESS;
         //整理基础返回数据
         $result = compact('state', 'code', 'msg', 'data');
         //判断额外的数据返回
@@ -131,7 +119,7 @@ if (!function_exists('responseReturn')) {
         }
 
         //TODO: 根据指定路由判断是否添加返回值
-        if (in_array('app', object_2_array(request()->route()->getAction('middleware')))) {
+        if (in_array('app', \Abnermouke\Supports\Library\HelperLibrary::objectToArray(request()->route()->getAction('middleware')))) {
 
             //TODO: 添加指定返回值
 

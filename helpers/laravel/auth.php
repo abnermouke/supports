@@ -27,7 +27,7 @@ if (!function_exists('current_auth')) {
             return false;
         }
         //整理信息
-        return $item && !empty($item) ? data_get($auth, $item, false) : $auth;
+        return !empty($item) ? data_get($auth, $item, false) : $auth;
     }
 }
 
@@ -61,7 +61,7 @@ if (!function_exists('auth_name')) {
     function auth_name($prefix = 'your-project-alias:account')
     {
         //获取session授权名称
-        return ($prefix && !empty($prefix) ? $prefix : 'your-project-alias:account').'_auth_info';
+        return (!empty($prefix) ? $prefix : 'your-project-alias:account').'_auth_info';
     }
 }
 

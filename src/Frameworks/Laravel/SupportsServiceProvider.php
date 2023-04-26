@@ -1,10 +1,10 @@
 <?php
 
-namespace Abnermouke\Frameworks\Laravel;
+namespace Abnermouke\Supports\Frameworks\Laravel;
 
-use Abnermouke\Frameworks\Laravel\Commands\InterfaceCommands;
-use Abnermouke\Frameworks\Laravel\Commands\PackageCommands;
-use Abnermouke\Frameworks\Laravel\Commands\SupportsCommands;
+use Abnermouke\Supports\Frameworks\Laravel\Commands\InterfaceCommands;
+use Abnermouke\Supports\Frameworks\Laravel\Commands\PackageCommands;
+use Abnermouke\Supports\Frameworks\Laravel\Commands\SupportsCommands;
 use Illuminate\Support\ServiceProvider;
 
 class SupportsServiceProvider extends ServiceProvider
@@ -54,9 +54,9 @@ class SupportsServiceProvider extends ServiceProvider
             __DIR__ . '/Middlewares/BaseSupportsMiddleware.php' => app_path('Http/Middleware/Abnermouke/BaseSupportsMiddleware.php'),
         ]);
         // 注册配置
-        $this->commands('command.generate.package');
-        $this->commands('command.generate.supports');
-        $this->commands('command.generate.interface');
+        $this->commands('command.builder.package');
+        $this->commands('command.builder.supports');
+        $this->commands('command.builder.interface');
     }
 
 }

@@ -1,6 +1,6 @@
 <?php
 /**
- * Power by abnermouke/easy-builder.
+ * Power by abnermouke/supports.
  * User: {__AUTHOR__} <{__AUTHOR_CONTACT_EMAIL}>
  * Originate in {__ORIGINATE__}
  * Date: {__DATE__}
@@ -9,7 +9,7 @@
 
 namespace App\Http\Controllers{__DICTIONARY__};
 
-use Abnermouke\Frameworks\Laravel\Modules\BaseController;
+use Abnermouke\Supports\Frameworks\Laravel\Modules\BaseController;
 
 /**
  * {__DATA_NAME__}基础控制器

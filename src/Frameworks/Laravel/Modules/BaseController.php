@@ -1,6 +1,6 @@
 <?php
 
-namespace Abnermouke\Frameworks\Laravel\Modules;
+namespace Abnermouke\Supports\Frameworks\Laravel\Modules;
 
 use App\Http\Controllers\Controller;
 

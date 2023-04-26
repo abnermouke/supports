@@ -1,6 +1,6 @@
 <?php
 
-namespace Abnermouke\Frameworks\Laravel\Commands;
+namespace Abnermouke\Supports\Frameworks\Laravel\Commands;
 
 use Abnermouke\Supports\Assists\Str;
 use Abnermouke\Supports\Library\HelperLibrary;
