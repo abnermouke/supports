@@ -210,4 +210,39 @@ class Arr
         return empty($array) ? $default : end($array);
     }
 
+    /**
+     * 将多个数组合并为一个数组
+     * @Author Abnermouke <abnermouke@outlook.com | yunnitec@outlook.com>
+     * @Originate in YunniTec <https://www.yunnitec.com/>
+     * @Time 2023-04-26 15:14:27
+     * @param $array
+     * @return array
+     */
+    public static function collapse($array)
+    {
+        $results = [];
+
+        foreach ($array as $values) {
+            if (! is_array($values)) {
+                continue;
+            }
+
+            $results[] = $values;
+        }
+
+        return array_merge([], ...$results);
+    }
+
+    /**
+     * 检查给定的值是否可数组式访问
+     * @Author Abnermouke <abnermouke@outlook.com | yunnitec@outlook.com>
+     * @Originate in YunniTec <https://www.yunnitec.com/>
+     * @Time 2023-04-26 15:15:07
+     * @param $value
+     * @return bool
+     */
+    public static function accessible($value)
+    {
+        return is_array($value) || $value instanceof ArrayAccess;
+    }
 }

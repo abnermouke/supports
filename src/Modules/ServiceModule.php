@@ -9,7 +9,7 @@ use Abnermouke\Supports\Library\CodeLibrary;
  */
 class ServiceModule
 {
-// 逻辑状态（成功｜失败）
+    // 逻辑状态（成功｜失败）
     private $state = false;
 
     // 处理结果集合
