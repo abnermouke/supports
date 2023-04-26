@@ -3,6 +3,7 @@
 namespace Abnermouke\Supports\Providers\Sandpay\Hmf;
 
 use Abnermouke\Supports\Assists\Arr;
+use Abnermouke\Supports\Library\HelperLibrary;
 
 /**
  * 杉德支付 - 河马付 - H5包装接入 （https://www.yuque.com/sd_cw/etmgxs/cq9zg4?）
@@ -53,8 +54,8 @@ class H5PackProvider
         //设置参数
         $this->params = array_merge($this->params, [
             'mer_order_no' => $this->order_data['out_trade_no'],
-            'create_time' => auto_datetime('YmdHis'),
-            'expire_time' => auto_datetime('YmdHis', (time()+7200)),
+            'create_time' => HelperLibrary::formatDateTime(time(), 'YmdHis'),
+            'expire_time' => HelperLibrary::formatDateTime(time()+7200, 'YmdHis'),
             'order_amt' => (string)$this->order_data['total_amount'],
             'goods_name' => $this->order_data['subject'],
             'create_ip' => str_replace('.', '_', $this->order_data['ip']),
@@ -109,10 +110,12 @@ class H5PackProvider
      * @param $gh_static_url string 小程序云静态网站url.html (截取到html即可)
      * @param $wx_app_id string 微信小程序APPID（必须正式发布）
      * @param $gh_ori_id string 微信小程序原始ID
+     * @param $notify_url string 回调地址
+     * @param $return_url string 返回地址
      * @param $cus_params array 自定义统一下单参数（详见：https://www.yuque.com/sd_cw/etmgxs/cq9zg4?#ddl85）
      * @return mixed
      */
-    public function wechat_mini_programing($private_key_path, $gh_static_url, $wx_app_id, $gh_ori_id, $cus_params = [])
+    public function wechat_mini_programing($private_key_path, $gh_static_url, $wx_app_id, $gh_ori_id, $notify_url, $return_url = '',  $cus_params = [])
     {
         //设置商户私钥地址
         $this->private_key_path = $private_key_path;
@@ -145,10 +148,12 @@ class H5PackProvider
      * @Originate in YunniTec <https://www.yunnitec.com/>
      * @Time 2023-04-20 09:35:17
      * @param $private_key_path string 商户私钥绝对路径（生成1024位密钥对，公钥需上传并同步至杉德商户后台）
+     * @param $notify_url string 回调地址
+     * @param $return_url string 返回地址
      * @param $cus_params array 自定义统一下单参数（详见：https://www.yuque.com/sd_cw/etmgxs/cq9zg4?#ddl85）
      * @return mixed
      */
-    public function alipay($private_key_path, $cus_params = [])
+    public function alipay($private_key_path, $notify_url, $return_url = '',  $cus_params = [])
     {
         //设置商户私钥地址
         $this->private_key_path = $private_key_path;

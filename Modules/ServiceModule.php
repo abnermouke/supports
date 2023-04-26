@@ -29,7 +29,7 @@ class ServiceModule
 
     /**
      * 构造函数
-     * @param $pass 是否直接获取结果
+     * @param $pass bool 是否直接获取结果
      */
     public function __construct($pass = false)
     {

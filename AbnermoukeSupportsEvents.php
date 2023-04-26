@@ -21,11 +21,6 @@ class AbnermoukeSupportsEvents
     public static function autoload()
     {
         //判断文件是否存在
-        if (File::missing(($target_path = Path::root('config').DIRECTORY_SEPARATOR.'orm_database.php'))) {
-            //复制内容
-            File::copy(Path::vendor('abnermouke/supports/config/orm_database.php'), $target_path);
-        }
-        //判断文件是否存在
         if (File::missing(($target_path = Path::public('static/avatars')))) {
             //检查路径
             File::makeDirectory($target_path, 0755, true);
