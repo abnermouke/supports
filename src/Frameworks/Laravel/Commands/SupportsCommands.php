@@ -48,8 +48,10 @@ class SupportsCommands extends Command
      */
     public function handle()
     {
+        //询问域名
+        $domain = $this->ask('请输入当前项目默认域名，如：baidu.com', 'domain.com');
         //替换文件关键词（configs/project.php）
-        $project_php_tpl = str_replace(['__APP_KEY__', '__APP_SECRET__', '__AES_IV__', '__AES_ENCRYPT_KEY__'], ['ak'.date('Ymd').strtolower(Str::random(10)), strtoupper(md5(HelperLibrary::createSn().Str::random())), strtoupper(Str::random()), strtoupper(Str::random(8))], file_get_contents(config_path('project.php')));
+        $project_php_tpl = str_replace(['domain.com', '__APP_KEY__', '__APP_SECRET__', '__AES_IV__', '__AES_ENCRYPT_KEY__'], [$domain, 'AK'.date('Ymd').strtoupper(Str::random(10)), strtoupper(md5(HelperLibrary::createSn().Str::random())), strtoupper(Str::random(16)), strtoupper(Str::random(16))], file_get_contents(config_path('project.php')));
         //替换内容
         file_put_contents(config_path('project.php'), $project_php_tpl);
         //替换文件关键词（configs/builder.php）

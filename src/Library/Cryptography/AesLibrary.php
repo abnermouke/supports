@@ -40,12 +40,13 @@ class AesLibrary
      * @param $iv string 加密IV（16位）
      * @param $cipher_algo string 加密方法
      * @param $options int 加密格式选项
+     * @param $base64_encoding int 是否已加密（BASE64）
      * @return mixed
      */
-    public static function decrypt($encrypt_string, $aes_encrypt_key, $iv, $cipher_algo = 'AES-128-CBC', $options = OPENSSL_RAW_DATA)
+    public static function decrypt($encrypt_string, $aes_encrypt_key, $iv, $cipher_algo = 'AES-128-CBC', $options = OPENSSL_RAW_DATA, $base64_encoding = true)
     {
         //初始化信息
-        $encrypt_string = base64_decode($encrypt_string);
+        $encrypt_string = $base64_encoding ? base64_decode($encrypt_string) : $encrypt_string;
         //解密信息
         $encrypt_data = openssl_decrypt($encrypt_string, $cipher_algo, $aes_encrypt_key,  $options, $iv);
         //整理信息

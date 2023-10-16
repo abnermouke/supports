@@ -8,6 +8,12 @@ namespace Abnermouke\Supports\Assists;
 class Str
 {
 
+    /**
+     * The cache of studly-cased words.
+     *
+     * @var array
+     */
+    protected static $studlyCache = [];
 
     /**
      * 生成随机长度字符串
@@ -53,6 +59,26 @@ class Str
         return false;
     }
 
+    /**
+     * Convert a value to studly caps case.
+     * @Author Abnermouke <abnermouke@outlook.com | yunnitec@outlook.com>
+     * @Originate in YunniTec <https://www.yunnitec.com/>
+     * @Time 2023-07-17 14:45:09
+     * @param $value
+     * @return array|mixed|string|string[]
+     */
+    public static function studly($value)
+    {
+        $key = $value;
+
+        if (isset(static::$studlyCache[$key])) {
+            return static::$studlyCache[$key];
+        }
+
+        $value = ucwords(str_replace(['-', '_'], ' ', $value));
+
+        return static::$studlyCache[$key] = str_replace(' ', '', $value);
+    }
 
 
 }

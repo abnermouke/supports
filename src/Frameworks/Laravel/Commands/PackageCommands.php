@@ -158,7 +158,7 @@ class PackageCommands extends Command
             //获取执行结果
             $output = Artisan::output();
             //匹配文件名
-            $ret = preg_match('~Created Migration(.*)\n~Uuis', $output, $matched);
+            $ret = preg_match('~Migration(.*)_table~Uuis', $output, $matched);
             //判断是否匹配成功
             if ($ret <= 0) {
                 //输出错误
@@ -168,7 +168,7 @@ class PackageCommands extends Command
             //初始化文件名
             $migrationName = $matched[1];
             //替换换行符（windows迁移执行结果可能出现换行符等不必要字符，不处理会导致文件找不到）
-            $migrationName = str_replace(["\r", "\n", ':', '[', ']', '.', ' '], ['', '', '', '', '', '', ''], $migrationName);
+            $migrationName = str_replace(["\r", "\n", ':', '[', ']', '.', ' ', 'database/migrations/'], ['', '', '', '', '', '', '', ''], $migrationName).'_table';
             //判断是否不存在目录
             !File::isDirectory($dir_path) && File::makeDirectory($dir_path, 0777, true);
             //填充迁移文件
@@ -210,17 +210,17 @@ class PackageCommands extends Command
         //获取执行结果
         $output = Artisan::output();
         //匹配文件名
-        $ret = preg_match('~Created Migration(.*)\n~Uuis', $output, $matched);
+        $ret = preg_match('~Migration(.*)_table~Uuis', $output, $matched);
         //判断是否匹配成功
         if ($ret <= 0) {
             //输出错误
-            $this->output->warning('Migration出现未知错误');
+            $this->output->warning('Migration出现未知错误 ['.$output.']');
             return true;
         }
         //初始化文件名
         $migrationName = trim($matched[1]);
         //替换换行符（windows迁移执行结果可能出现换行符等不必要字符，不处理会导致文件找不到）
-        $migrationName = str_replace(["\r", "\n", ':', '[', ']', '.', ' '], ['', '', '', '', '', '', ''], $migrationName);
+        $migrationName = str_replace(["\r", "\n", ':', '[', ']', '.', ' ', 'database/migrations/'], ['', '', '', '', '', '', '', ''], $migrationName).'_table';
         //询问获取数据库配置信息
         $this->tplParams['__CHARSET__'] = ($this->option('dcs') ? $this->option('dcs') : $this->choice('请选择当前数据库表使用的字符集！', ['utf8', 'utf8mb4'], $this->tplParams['__CHARSET__']));
         $this->tplParams['__ENGINE__'] = ($this->option('de') ? $this->option('de') : $this->choice('请输入当前数据库表使用的储存引擎！', ['myisam', 'innodb'], $this->tplParams['__ENGINE__']));

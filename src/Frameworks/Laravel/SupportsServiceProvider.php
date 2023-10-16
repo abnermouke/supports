@@ -51,6 +51,7 @@ class SupportsServiceProvider extends ServiceProvider
             __DIR__.'/../../../helpers/laravel/response.php' => app_path('Helpers/response.php'),
             __DIR__.'/../../../helpers/projects.php' => app_path('Helpers/projects.php'),
             __DIR__.'/Commands/TestCommand.php' => app_path('Console/Commands/TestCommand.php'),
+            __DIR__.'/Commands/UpdateCommand.php' => app_path('Console/Commands/Application/UpdateCommand.php'),
             __DIR__ . '/Middlewares/BaseSupportsMiddleware.php' => app_path('Http/Middleware/Abnermouke/BaseSupportsMiddleware.php'),
         ]);
         // 注册配置

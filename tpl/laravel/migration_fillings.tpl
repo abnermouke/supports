@@ -54,7 +54,7 @@ class CreateFillingsTable extends Migration
                     //获取表名
                     $table_name = trim($matched[1]);
                     //获取Model
-                    $model_class_name = 'App\\Model\\' . $module_alias . '\\' . (strstr($table_name, '___') ? implode('\\', array_map(function ($value) {
+                    $model_class_name = 'App\\Models\\' . $module_alias . '\\' . (strstr($table_name, '___') ? implode('\\', array_map(function ($value) {
                         return Str::studly($value);
                     }, explode('___', $table_name))) : Str::studly($table_name));
                     //判断model是否存在

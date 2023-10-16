@@ -2,7 +2,6 @@
 
 namespace Abnermouke\Supports\Frameworks\Laravel\Modules;
 
-use Abnermouke\Frameworks\Laravel\Modules\BaseModel;
 use Abnermouke\Supports\Assists\Arr;
 use Abnermouke\Supports\Assists\Str;
 use Abnermouke\Supports\Library\HelperLibrary;
@@ -1032,7 +1031,7 @@ class BaseRepository
      * @return false|string
      * @throws \Exception
      */
-    public function uniqueCode($field, $type = 'md5', $length = 8, $upper = false)
+    public function uniqueCode($field, $type = 'md5', $length = 8, $upper = false, $prefix = '')
     {
         //根据类型生成对应编码
         switch ($type) {
@@ -1040,13 +1039,13 @@ class BaseRepository
                 //生成加密字符串
                 $code = md5(HelperLibrary::createSn().Str::random($length));
                 break;
-            case 'su':      //string upper
+            case 'sup':      //string upper
                 //生成加密字符串（大写）
                 $code = strtoupper(Str::random($length));
                 break;
-            case 'sl':      //string lower
+            case 'slo':      //string lower
                 //生成加密字符串（小写）
-                $code = strtoupper(Str::random($length));
+                $code = strtolower(Str::random($length));
                 break;
             case 'number':
                 //生成加密数字
@@ -1059,6 +1058,8 @@ class BaseRepository
         }
         //判断是否需要大写
         $upper && $code = strtoupper($code);
+        //初始化信息
+        $prefix && $code = $prefix.$code;
         //判断数据是否存在
         if ($this->exists([$field => $code])) {
             //重新生成

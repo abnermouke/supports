@@ -532,5 +532,52 @@ class HelperLibrary
         return str_replace(['+', '/'], ['-', '_'], $md5_b64_str);
     }
 
+    /**
+     * 移除数组中无效内容（为空｜为null）
+     * @Author Abnermouke <abnermouke@outlook.com | yunnitec@outlook.com>
+     * @Originate in YunniTec <https://www.yunnitec.com/>
+     * @Time 2023-09-20 00:13:11
+     * @param $array
+     * @return mixed
+     */
+    public static function removeInvalidArray($array) {
+        //循环数组信息
+        foreach ($array as $k => $value) {
+            //判断信息
+            if (empty($value) || is_null($value)) {
+                //移除信息
+                unset($array[$k]);
+            }
+        }
+        //返回信息
+        return $array;
+    }
+
+    /**
+     * 选项内容携带索引值
+     * @Author Abnermouke <abnermouke@outlook.com | yunnitec@outlook.com>
+     * @Originate in YunniTec <https://www.yunnitec.com/>
+     * @Time 2023-09-21 10:48:33
+     * @param $options
+     * @param $fields
+     * @return array
+     */
+    public static function optionsWithIndex($options, $fields = ['value', 'name', 'index'])
+    {
+        //设置基础数据
+        $values = [];
+        //设置默认索引值
+        $index = 0;
+        //循环选项
+        foreach ($options as $value => $name) {
+            //设置选项信息
+            $values[$index] = [$fields[2] => $index, $fields[1] => $name, $fields[0] => $value];
+            //增加索引值
+            $index ++;
+        }
+        //返回内容
+        return $values;
+    }
+
 
 }

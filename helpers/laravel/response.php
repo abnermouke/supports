@@ -48,7 +48,7 @@ if (!function_exists('responseError')) {
     function responseError($code, $data = [], $msg = '', $extra = [], $format = 'json', $callback = '')
     {
         //判断提示信息
-        if (!empty($msg)) {
+        if (empty($msg)) {
             //根据状态码获取提示信息
             $msg = '[ERROR:'.(int)$code.']';
         }
@@ -117,14 +117,15 @@ if (!function_exists('responseReturn')) {
             //设置基础数据
             $result['consuming'] = (((int)(microtime(true)*1000) - (int)$logic_request_log_time * 1000)).'ms';
         }
-
-        //TODO: 根据指定路由判断是否添加返回值
-        if (in_array('app', \Abnermouke\Supports\Library\HelperLibrary::objectToArray(request()->route()->getAction('middleware')))) {
-
-            //TODO: 添加指定返回值
-
+        //TODO : 整理需要返回ACCESS——TOKEN中间件
+        $needle_middlewares = ['api.app', 'api.workstation'];
+        //获取当前中间件
+        $current_middlewares = \Abnermouke\Supports\Library\HelperLibrary::objectToArray(request()->route()->getAction('middleware'));
+        //判断是否为接口请求
+        if ($current_middlewares && array_intersect($needle_middlewares, $current_middlewares)) {
+            //返回accessToken
+            $result['x_access_token'] = (string)request()->get('__CURRENT_ACCOUNT_ACCESS_TOKEN__', '');
         }
-
         //根据返回类型处理信息
         switch ($format) {
             case 'jsonp':
