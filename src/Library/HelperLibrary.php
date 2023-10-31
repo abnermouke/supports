@@ -579,5 +579,34 @@ class HelperLibrary
         return $values;
     }
 
+    /**
+     * 整理请求参数（替换不规则字段）
+     * @Author Abnermouke <abnermouke@outlook.com | yunnitec@outlook.com>
+     * @Originate in YunniTec <https://www.yunnitec.com/>
+     * @Time 2023-10-20 00:07:25
+     * @param $params
+     * @return mixed
+     */
+    public static function arrangeRequetParams($params)
+    {
+        //判断信息
+        if ($params) {
+            //循环参数信息
+            foreach ($params as $k => $param) {
+                //判断信息
+                if (is_array($param)) {
+                    //整理信息
+                    $param = !empty($param) ? Arr::query($param) : '[]';
+                }
+                //判断信息
+                $param = Str::length($param) > 200 ? ('__LONG_TEXT__:'.Str::length($param)) : $param;
+                //设置参数信息
+                $params[$k] = $param;
+            }
+        }
+        //返回参数信息
+        return $params;
+    }
+
 
 }

@@ -27,9 +27,7 @@ return [
         'app' => env('DOMAIN_OF_APP', 'https://app.domain.com'),
         'open' => env('DOMAIN_OF_OPEN', 'https://open.domain.com'),
         'workstation' => env('DOMAIN_OF_WORKSTATION', 'https://ws.domain.com'),
-        'editor' => env('DOMAIN_OF_EDITOR', 'https://ed.domain.com'),
-        'material' => env('DOMAIN_OF_MATERIAL', 'https://matl.domain.com'),
-        'export' => env('DOMAIN_OF_EXPORT', 'https://exp.domain.com'),
+        'console' => env('DOMAIN_OF_CONSOLE', 'https://cons.domain.com'),
 
     ],
 
@@ -90,7 +88,7 @@ return [
                     'app_id' => '',
                     'secret' => '',
                     'token' => '',
-                    'aes_key' => '',
+                    'aes_key' => ''
                 ],
                 //开放平台-APP移动应用
                 'open_platform' => [

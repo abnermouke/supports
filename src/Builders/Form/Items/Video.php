@@ -143,7 +143,7 @@ class Video extends Builder
             $material_params['extension'] = ['in', $extensions];
         }
         //移除空白数据
-        return $this->setExtra('chooseParamters', HelperLibrary::removeInvaildArray($paramters))->materialParams($material_params);
+        return $this->setExtra('chooseParamters', HelperLibrary::removeInvalidArray($paramters))->materialParams($material_params);
     }
 
     /**

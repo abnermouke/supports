@@ -6,6 +6,7 @@ use Abnermouke\Supports\Builders\Form\Items\Album;
 use Abnermouke\Supports\Builders\Form\Items\Attribute;
 use Abnermouke\Supports\Builders\Form\Items\Datetime;
 use Abnermouke\Supports\Builders\Form\Items\File;
+use Abnermouke\Supports\Builders\Form\Items\Group;
 use Abnermouke\Supports\Builders\Form\Items\Image;
 use Abnermouke\Supports\Builders\Form\Items\Input;
 use Abnermouke\Supports\Builders\Form\Items\Option;
@@ -224,6 +225,23 @@ class Items
     {
         //创建构建器实例
         $this->contents[] = $builder = new Video($field, $label);
+        //返回构建器
+        return $builder;
+    }
+
+    /**
+     * 创建构建器实例 - 分组选项
+     * @Author Abnermouke <abnermouke@outlook.com | yunnitec@outlook.com>
+     * @Originate in YunniTec <https://www.yunnitec.com/>
+     * @Time 2023-10-30 22:18:20
+     * @param $field
+     * @param $label
+     * @return Group
+     */
+    public function group($field, $label)
+    {
+        //创建构建器实例
+        $this->contents[] = $builder = new Group($field, $label);
         //返回构建器
         return $builder;
     }

@@ -29,6 +29,8 @@ class Shortcuts
     {
         //初始化信息
         $url = $post_url;
+        //初始化信息
+        $row_fields = is_array($row_fields) ? $row_fields : explode(',', $row_fields);
         //设置信息
         $this->contents[] = compact('field', 'label', 'url', 'row_fields', 'on', 'refresh');
     }

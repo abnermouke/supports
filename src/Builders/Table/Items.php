@@ -4,6 +4,7 @@ namespace Abnermouke\Supports\Builders\Table;
 
 use Abnermouke\Supports\Builders\Table\Items\Cover;
 use Abnermouke\Supports\Builders\Table\Items\Desc;
+use Abnermouke\Supports\Builders\Table\Items\Header;
 use Abnermouke\Supports\Builders\Table\Items\Infos;
 use Abnermouke\Supports\Builders\Table\Items\Mark;
 use Abnermouke\Supports\Builders\Table\Items\Schedules;
@@ -128,6 +129,22 @@ class Items
     {
         //创建实例
         $this->contents[] = $builder = new Mark($field);
+        //返回实例对象
+        return $builder;
+    }
+
+    /**
+     * 创建头部对象
+     * @Author Abnermouke <abnermouke@outlook.com | yunnitec@outlook.com>
+     * @Originate in YunniTec <https://www.yunnitec.com/>
+     * @Time 2023-10-30 16:01:02
+     * @param $field
+     * @return Header
+     */
+    public function header($field)
+    {
+        //创建实例
+        $this->contents[] = $builder = new Header($field);
         //返回实例对象
         return $builder;
     }

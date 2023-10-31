@@ -13,6 +13,7 @@ use Abnermouke\Supports\Builders\Table\Filters\Options;
 use Abnermouke\Supports\Builders\Table\Filters\Range;
 use Abnermouke\Supports\Builders\Table\Items\Cover;
 use Abnermouke\Supports\Builders\Table\Items\Desc;
+use Abnermouke\Supports\Builders\Table\Items\Header;
 use Abnermouke\Supports\Builders\Table\Items\Infos;
 use Abnermouke\Supports\Builders\Table\Items\Mark;
 use Abnermouke\Supports\Builders\Table\Items\Schedules;
@@ -35,6 +36,7 @@ class Builder
         'tools' => [],
         'items' => [],
         'actions' => [],
+        'options' => [],
         'shortcuts' => [],
         'noticeBar' => [],
         'statistics' => [],
@@ -62,17 +64,31 @@ class Builder
      * @Originate in YunniTec <https://www.yunnitec.com/>
      * @Time 2023-09-19 22:28:24
      * @param $primary
+     * @param $default string 字体默认颜色
      * @param $danger
      * @param $warning
      * @param $success
      * @param $info
-     * @param $default
      * @return $this
      */
-    public function setThemes($primary = '#1966FF', $danger = '#FA5151', $warning = '#FFC300', $success = '#07C160', $info = '#10AEFF', $default = '#333333')
+    public function setThemes($primary = '#1966FF', $default = '#333333', $danger = '#FA5151', $warning = '#FFC300', $success = '#07C160', $info = '#10AEFF')
     {
         //设置主题色
         return $this->setExtra('themes', compact('primary', 'danger', 'warning', 'success', 'info', 'default'));
+    }
+
+    /**
+     * 设置请求信息
+     * @Author Abnermouke <abnermouke@outlook.com | yunnitec@outlook.com>
+     * @Originate in YunniTec <https://www.yunnitec.com/>
+     * @Time 2023-10-23 00:08:56
+     * @param $request
+     * @return $this|m.\Abnermouke\Supports\Builders\Table\Builder.setThemes
+     */
+    public function setRequest($request)
+    {
+        //设置请求信息
+        return $this->setThemes(data_get($request->all(), '__device__.themes.color', '#1966FF'), data_get($request->all(), '__device__.themes.mian', '#333333'));
     }
 
     /**
@@ -112,7 +128,7 @@ class Builder
         //循环信息
         foreach ($this->renders['items']['contents'] as $k => $item) {
             //判断信息
-            if ($item instanceof Title || $item instanceof Desc || $item instanceof Schedules || $item instanceof Cover || $item instanceof Tags || $item instanceof Mark || $item instanceof Infos) {
+            if ($item instanceof Title || $item instanceof Desc || $item instanceof Schedules || $item instanceof Cover || $item instanceof Tags || $item instanceof Mark || $item instanceof Infos || $item instanceof Header) {
                 //设置信息
                 $this->renders['items']['contents'][$k] = $item->get();
             }
@@ -404,7 +420,7 @@ class Builder
                 }
             }
             //循环信息
-            foreach (['title', 'cover', 'desc', 'schedules', 'tags', 'infos', 'mark'] as $field) {
+            foreach (['title', 'cover', 'desc', 'schedules', 'tags', 'infos', 'mark', 'header'] as $field) {
                 //判断信息
                 if (!data_get($items, $field, false)) {
                     //设置信息
@@ -517,6 +533,32 @@ class Builder
         }
         //设置默认页码等数据
         $this->renders['formData'] = array_merge($this->renders['formData'], Arr::only($this->renders['extras']['defaults'], ['page', 'page_size']));
+        //整理操作项目
+        $options = [];
+        //判断是否存在操作
+        if ($this->renders['actions']['enable']) {
+            //初始化默认操作
+            $actions = [];
+            //循环操作
+            foreach ($this->renders['actions']['contents'] as $k => $action) {
+                //判断是否为主要操作
+                if ($action['theme'] == \Abnermouke\Supports\Builders\Route\Builder::THEME_OF_PRIMARY || $action['conditions']) {
+                    //设置默认操作
+                    $actions[] = $action;
+                } else {
+                    //设置信息
+                    $options[] = [
+                        'text' => $action['name'],
+                        'color' => $this->renders['extras']['themes'][$action['theme']],
+                        'params' => $action
+                    ];
+                }
+            }
+            //设置信息
+            $this->renders['actions'] = ['enable' => !empty($actions), 'contents' => $actions];
+        }
+        //设置信息
+        $this->renders['options'] = ['enable' => !empty($options), 'contents' => $options];
         //执行成功
         return true;
     }

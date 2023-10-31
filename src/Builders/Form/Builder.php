@@ -7,6 +7,7 @@ use Abnermouke\Supports\Builders\Form\Items\Album;
 use Abnermouke\Supports\Builders\Form\Items\Attribute;
 use Abnermouke\Supports\Builders\Form\Items\Datetime;
 use Abnermouke\Supports\Builders\Form\Items\File;
+use Abnermouke\Supports\Builders\Form\Items\Group;
 use Abnermouke\Supports\Builders\Form\Items\Image;
 use Abnermouke\Supports\Builders\Form\Items\Input;
 use Abnermouke\Supports\Builders\Form\Items\Option;
@@ -18,6 +19,7 @@ use Abnermouke\Supports\Builders\Form\Items\Video;
 use Abnermouke\Supports\Builders\Route\Interfaces;
 use Abnermouke\Supports\Builders\Route\Navigate;
 use Abnermouke\Supports\Builders\Statistics\StatisticsBuilder;
+use Abnermouke\Supports\Library\HelperLibrary;
 use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Storage;
 
@@ -129,17 +131,31 @@ class Builder
      * @Originate in YunniTec <https://www.yunnitec.com/>
      * @Time 2023-09-21 09:53:11
      * @param $primary
+     * @param $default
      * @param $danger
      * @param $warning
      * @param $success
      * @param $info
-     * @param $default
      * @return $this
      */
-    public function setThemes($primary = '#1966FF', $danger = '#FA5151', $warning = '#FFC300', $success = '#07C160', $info = '#10AEFF', $default = '#333333')
+    public function setThemes($primary = '#1966FF', $default = '#333333', $danger = '#FA5151', $warning = '#FFC300', $success = '#07C160', $info = '#10AEFF')
     {
         //设置主题色
         return $this->setExtra('themes', compact('primary', 'danger', 'warning', 'success', 'info', 'default'));
+    }
+
+    /**
+     * 设置请求信息
+     * @Author Abnermouke <abnermouke@outlook.com | yunnitec@outlook.com>
+     * @Originate in YunniTec <https://www.yunnitec.com/>
+     * @Time 2023-10-23 01:16:40
+     * @param $request
+     * @return $this|m.\Abnermouke\Supports\Builders\Form\Builder.setThemes
+     */
+    public function setRequest($request)
+    {
+        //设置请求信息
+        return $this->setThemes(data_get($request->all(), '__device__.themes.color', '#1966FF'), data_get($request->all(), '__device__.themes.mian', '#333333'));
     }
 
     /**
@@ -159,7 +175,7 @@ class Builder
         //循环信息
         foreach ($this->renders['items']['contents'] as $k => $item) {
             //判断信息
-            if ($item instanceof Album || $item instanceof Attribute || $item instanceof Datetime || $item instanceof File || $item instanceof Image || $item instanceof Input || $item instanceof Option || $item instanceof Parameter || $item instanceof Select || $item instanceof Tags || $item instanceof Textarea || $item instanceof Video) {
+            if ($item instanceof Album || $item instanceof Attribute || $item instanceof Datetime || $item instanceof File || $item instanceof Image || $item instanceof Input || $item instanceof Option || $item instanceof Parameter || $item instanceof Select || $item instanceof Tags || $item instanceof Textarea || $item instanceof Video || $item instanceof Group) {
                 //获取数据
                 $item = $item->get();
             }
@@ -340,11 +356,17 @@ class Builder
                     case 'album':
                     case 'attribute':
                     case 'files':
-                    case 'option':
                     case 'parameter':
                     case 'tags':
+                    case 'group':
+                        //设置默认值
+                        $this->renders['formData'][$item['field']] = HelperLibrary::objectToArray(data_get($this->renders['extras'], ('defaults.'.$item['field']), []));
+                        break;
+                    case 'option':
                         //设置默认值
                         $this->renders['formData'][$item['field']] = data_get($this->renders['extras'], ('defaults.'.$item['field']), []);
+                        //判断是否为数组
+                        $this->renders['formData'][$item['field']] = is_array($this->renders['formData'][$item['field']]) ?: [is_numeric($this->renders['formData'][$item['field']]) ? (int)$this->renders['formData'][$item['field']] : $this->renders['formData'][$item['field']]];
                         break;
                     case 'datetime':
                         //判断是否为区间选择
@@ -444,7 +466,7 @@ class Builder
         //判断是否设置对应处理对象
         if ($this->renders['handlers']['materials']) {
             //设置选择选择对象
-            $this->renders['extras']['chooseSheets'][] = ['text' => $this->renders['texts']['choose_materials'], 'color' => $this->renders['extras']['themes']['info'], 'local' => false];
+            $this->renders['extras']['chooseSheets'][] = ['text' => $this->renders['texts']['choose_materials'], 'color' => $this->renders['extras']['themes']['primary'], 'local' => false];
         }
         //判断是否设置对应处理对象
         if ($this->renders['handlers']['uploader']) {
