@@ -9,6 +9,7 @@ use Abnermouke\Supports\Assists\Str;
  * @method static \Abnermouke\Supports\Builders\NoticeBar\Builder noticeBar()
  * @method static \Abnermouke\Supports\Builders\Table\Builder table()
  * @method static \Abnermouke\Supports\Builders\Form\Builder form()
+ * @method static \Abnermouke\Supports\Builders\Infos\Builder infos()
  */
 class Builder
 {

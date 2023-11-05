@@ -46,6 +46,7 @@ class Builder
             'themes' => [],
             'resets' => ['filters' => [], 'sorts' => []],
             'defaults' => ['page' => 1, 'page_size' => 10, 'filters' => [], 'sorts' => []],
+            'query' => ['alias' => '', 'default' => []],
         ],
     ];
 
@@ -55,7 +56,7 @@ class Builder
     public function __construct()
     {
         //设置默认信息
-        $this->set('extras', [])->setTexts()->setSearch()->defaultData()->setThemes();
+        $this->set('extras', [])->setTexts()->setSearch()->defaultData()->setThemes()->defaultQueryAlias();
     }
 
     /**
@@ -328,6 +329,20 @@ class Builder
     }
 
     /**
+     * 设置默认请求标识
+     * @Author Abnermouke <abnermouke@outlook.com | yunnitec@outlook.com>
+     * @Originate in YunniTec <https://www.yunnitec.com/>
+     * @Time 2023-11-03 12:35:46
+     * @param $alias
+     * @return $this
+     */
+    public function defaultQueryAlias($alias = '')
+    {
+        //设置默认请求标识
+        return $this->setExtra('query.alias', $alias);
+    }
+
+    /**
      * 配置表格渲染信息
      * @Author Abnermouke <abnermouke@outlook.com | yunnitec@outlook.com>
      * @Originate in YunniTec <https://www.yunnitec.com/>
@@ -530,6 +545,15 @@ class Builder
             }
             //设置信息
             $this->renders['query'] = array_merge($this->renders['query'], compact('default', 'states'));
+            //整理全部query
+            $queries = $this->renders['query']['contents'];
+            //设置默认请求
+            $this->setExtra('query.default', $queries[0]);
+            //判断是否指定
+            if ($this->renders['extras']['query']['alias']) {
+                //设置信息
+                $this->setExtra('query.default', data_get(array_column($queries, null, 'alias'), $this->renders['extras']['query']['alias'], $queries[0]));
+            }
         }
         //设置默认页码等数据
         $this->renders['formData'] = array_merge($this->renders['formData'], Arr::only($this->renders['extras']['defaults'], ['page', 'page_size']));
