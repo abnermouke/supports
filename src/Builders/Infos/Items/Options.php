@@ -19,6 +19,8 @@ class Options extends Builder
     {
         //引入父级构造
         parent::__construct('options', $field, $name);
+        //设置默认参数
+        $this->themes();
     }
 
     /**
@@ -32,7 +34,7 @@ class Options extends Builder
     public function options($options = [])
     {
         //设置选项
-        return $this->setExtra('options', $options)->themes();
+        return $this->setExtra('options', $options);
     }
 
     /**

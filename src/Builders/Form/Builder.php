@@ -6,6 +6,7 @@ use Abnermouke\Supports\Assists\Arr;
 use Abnermouke\Supports\Builders\Form\Items\Album;
 use Abnermouke\Supports\Builders\Form\Items\Attribute;
 use Abnermouke\Supports\Builders\Form\Items\Datetime;
+use Abnermouke\Supports\Builders\Form\Items\Editor;
 use Abnermouke\Supports\Builders\Form\Items\File;
 use Abnermouke\Supports\Builders\Form\Items\Group;
 use Abnermouke\Supports\Builders\Form\Items\Image;
@@ -175,7 +176,7 @@ class Builder
         //循环信息
         foreach ($this->renders['items']['contents'] as $k => $item) {
             //判断信息
-            if ($item instanceof Album || $item instanceof Attribute || $item instanceof Datetime || $item instanceof File || $item instanceof Image || $item instanceof Input || $item instanceof Option || $item instanceof Parameter || $item instanceof Select || $item instanceof Tags || $item instanceof Textarea || $item instanceof Video || $item instanceof Group) {
+            if ($item instanceof Album || $item instanceof Attribute || $item instanceof Datetime || $item instanceof File || $item instanceof Image || $item instanceof Input || $item instanceof Option || $item instanceof Parameter || $item instanceof Select || $item instanceof Tags || $item instanceof Textarea || $item instanceof Video || $item instanceof Group || $item instanceof Editor) {
                 //获取数据
                 $item = $item->get();
             }
