@@ -3,6 +3,7 @@
 namespace Abnermouke\Supports\Library;
 
 use Abnermouke\Supports\Assists\File;
+use Abnermouke\Supports\Assists\Framework;
 use Abnermouke\Supports\Assists\Path;
 
 /**
@@ -40,20 +41,26 @@ class LoggerLibrary
     {
         //初始化目录
         static::create();
-        //初始化路径
-        $path = static::$loggerPath.DIRECTORY_SEPARATOR.($logger_path ? Path::formatPath($logger_path) : (str_replace([' ', ':'], '-', strtolower($alias)).DIRECTORY_SEPARATOR.date('Y-m').DIRECTORY_SEPARATOR.date('d').'.log'));
-        //获取文件目录
-        if (File::missing($path)) {
-            //判断目录
-            if (!File::isDirectory(($directory = File::dirname($path)))) {
-                //创建目录
-                File::makeDirectory($directory, 0755, true);
+        //判断框架
+        if (Framework::laravel()) {
+            //初始化路径
+            $path = static::$loggerPath.DIRECTORY_SEPARATOR.($logger_path ? Path::formatPath($logger_path) : (str_replace([' ', ':'], '-', strtolower($alias)).DIRECTORY_SEPARATOR.date('Y-m').DIRECTORY_SEPARATOR.date('d').'.log'));
+            //获取文件目录
+            if (File::missing($path)) {
+                //判断目录
+                if (!File::isDirectory(($directory = File::dirname($path)))) {
+                    //创建目录
+                    File::makeDirectory($directory, 0755, true);
+                }
+                //写入文件
+                File::put($path, self::contents('SYSTEM', '创建日志记录文件'));
             }
-            //写入文件
-            File::put($path, self::contents('SYSTEM', '创建日志记录文件'));
+            //追加文件内容
+            File::append($path, self::contents($alias, $content));
+        } elseif (Framework::thinkphp()) {
+            //记录日志
+            \think\facade\Log::info(self::contents($alias, $content));
         }
-        //追加文件内容
-        File::append($path, self::contents($alias, $content));
         //返回成功
         return true;
     }
