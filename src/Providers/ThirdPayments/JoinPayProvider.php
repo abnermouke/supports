@@ -18,10 +18,13 @@ class JoinPayProvider
     private $configs = [
         'base_uri' => 'https://www.joinpay.com/',               //基础请求域名
         'timeout' => 60.0,                                      //请求超时
-        'version' => '2.3',                                     //版本号
         'merchant_no' => '',                                    //商户编号
         'trade_merchant_no' => '',                              //报备商户号
         'key_md5' => '',                                        //MD5密钥
+        'private_key_md5' => '',                                //快捷支付私钥（MD5）
+        'jp_public_key' => '',                                  //汇聚公钥
+        'mch_private_key' => '',                                //商户私钥
+        'sec_key' => '',                                        //RSA加密后的AES密钥
         'cur' => 1,                                             //交易币种（1:人民币）
         'notify_uri' => '',                                     //回调链接
         'weixin_app_id' => '',                                  //微信APPID

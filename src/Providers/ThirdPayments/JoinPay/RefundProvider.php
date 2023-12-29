@@ -19,6 +19,14 @@ class RefundProvider extends BasicProvider
     {
         //追加标识
         $configs['__CURRENT_ACTION__'] = '汇聚-订单退款';
+        //追加版本号
+        $configs['version'] = data_get($configs, 'version', '2.2');
+        //配置信息
+        $configs = array_merge($configs, ['__RESPONSE_PARAMS__' => [
+            'code' => 'rb_Code',
+            'code_value' => 0,
+            'message' => 'rb_CodeMsg'
+        ]]);
         //配置信息
         parent::__construct($configs);
     }
@@ -40,7 +48,7 @@ class RefundProvider extends BasicProvider
     {
         //整理公共预下单参数
         $params = [
-            'q1_version' => '2.2',
+            'q1_version' => $this->configs['version'],
             'p1_MerchantNo' => $this->configs['merchant_no'],
             'p2_OrderNo' => $out_trade_no,
             'p3_RefundOrderNo' => $refund_no,
@@ -53,9 +61,9 @@ class RefundProvider extends BasicProvider
         //发起请求
         $result = $this->httpRequest('/trade/refund.action', $params);
         //验证返回结果
-        if ((int)$result['ra_Code'] !== 100) {
+        if (!$result || (int)$result['rb_Code'] !== 100) {
             //响应结果
-            return $this->response(CodeLibrary::WITH_DO_NOT_ALLOW_STATE, $result['rb_CodeMsg'], $result);
+            return $this->response(CodeLibrary::WITH_DO_NOT_ALLOW_STATE, data_get($result, 'rb_CodeMsg', 'UNKNOWN'), $result);
         }
         //返回成功
         return $this->response(CodeLibrary::CODE_SUCCESS, '操作成功', [

@@ -135,15 +135,17 @@ class WechatProvider extends BasicProvider
         //发起请求
         $result = $this->httpRequest('/trade/uniPayApi.action', $params);
         //验证返回结果
-        if ((int)$result['ra_Code'] !== 100) {
+        if (!$result || (int)$result['ra_Code'] !== 100) {
             //响应结果
-            return $this->response(CodeLibrary::WITH_DO_NOT_ALLOW_STATE, $result['rb_CodeMsg'], $result);
+            return $this->response(CodeLibrary::WITH_DO_NOT_ALLOW_STATE, data_get($result, 'rb_CodeMsg', 'UNKNOWN'), $result);
         }
         //返回成功
         return $this->response(CodeLibrary::CODE_SUCCESS, '操作成功', [
+            'out_trade_no' => $result['r2_OrderNo'],
+            'amount' => (int)((float)$result['r3_Amount'] * 100),
+            'stream_no' => $result['r7_TrxNo'],
+            'payData' => $result['rc_Result'],
             'rawData' => $result,
-            'result' => $result['rc_Result'],
-            'stream_no' => $result['r7_TrxNo']
         ]);
     }
 

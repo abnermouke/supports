@@ -20,6 +20,12 @@ class QueryProvider extends BasicProvider
         //追加标识
         $configs['__CURRENT_ACTION__'] = '汇聚-订单查询';
         //配置信息
+        $configs = array_merge($configs, ['__RESPONSE_PARAMS__' => [
+            'code' => 'rb_Code',
+            'code_value' => 0,
+            'message' => 'rb_CodeMsg'
+        ]]);
+        //配置信息
         parent::__construct($configs);
     }
 
@@ -35,7 +41,9 @@ class QueryProvider extends BasicProvider
     public function payment(string $out_trade_no)
     {
         //追加标识
-        $configs['__CURRENT_ACTION__'] = '汇聚-订单支付查询';
+        $this->configs['__CURRENT_ACTION__'] = '汇聚-订单支付查询';
+        //追加版本号
+        $this->configs['version'] = data_get($this->configs, 'version', '2.3');
         //整理公共预下单参数
         $params = [
             'p0_Version' => $this->configs['version'],
@@ -47,14 +55,14 @@ class QueryProvider extends BasicProvider
         //发起请求
         $result = $this->httpRequest('/trade/queryOrder.action', $params);
         //验证返回结果
-        if ((int)$result['ra_Code'] !== 100) {
+        if (!$result || (int)$result['rb_Code'] !== 100) {
             //响应结果
-            return $this->response(CodeLibrary::WITH_DO_NOT_ALLOW_STATE, $result['rb_CodeMsg'], $result);
+            return $this->response(CodeLibrary::WITH_DO_NOT_ALLOW_STATE, data_get($result, 'rb_CodeMsg', 'UNKNOWN'), $result);
         }
         //返回成功
         return $this->response(CodeLibrary::CODE_SUCCESS, '操作成功', [
             'rawData' => $result,
-            'result' => [
+            'queryData' => [
                 'state' => (int)$result['ra_Status'] === 100,
                 'amount' => (int)((float)$result['r3_Amount'] * 100),
                 'out_trade_no' => $out_trade_no,
@@ -74,7 +82,9 @@ class QueryProvider extends BasicProvider
     public function refund(string $refund_no)
     {
         //追加标识
-        $configs['__CURRENT_ACTION__'] = '汇聚-订单退款查询';
+        $this->configs['__CURRENT_ACTION__'] = '汇聚-订单退款查询';
+        //追加版本号
+        $this->configs['version'] = data_get($this->configs, 'version', '2.1');
         //整理公共预下单参数
         $params = [
             'p0_Version' => $this->configs['version'],
@@ -86,14 +96,14 @@ class QueryProvider extends BasicProvider
         //发起请求
         $result = $this->httpRequest('/trade/queryRefund.action', $params);
         //验证返回结果
-        if ((int)$result['ra_Code'] !== 100) {
+        if (!$result || (int)$result['rb_Code'] !== 100) {
             //响应结果
-            return $this->response(CodeLibrary::WITH_DO_NOT_ALLOW_STATE, $result['rb_CodeMsg'], $result);
+            return $this->response(CodeLibrary::WITH_DO_NOT_ALLOW_STATE, data_get($result, 'rb_CodeMsg', 'UNKNOWN'), $result);
         }
         //返回成功
         return $this->response(CodeLibrary::CODE_SUCCESS, '操作成功', [
             'rawData' => $result,
-            'result' => [
+            'queryData' => [
                 'state' => (int)$result['ra_Status'] === 100,
                 'amount' => (int)((float)$result['r3_RefundAmount'] * 100),
                 'stream_no' => $result['r4_RefundTrxNo'],
