@@ -11,10 +11,10 @@ class BaseModel extends Model
 {
 
     // Laravel builder basic model ignore fields
-    protected $guarded = [];
+    protected array $guarded = [];
 
     // Laravel builder basic model automatic update timestamp
-    public $timestamps = false;
+    public bool $timestamps = false;
 
     // Laravel builder basic model order sort [desc]
     public const LATEST_ORDER_BY = 'latest()';
@@ -40,5 +40,5 @@ class BaseModel extends Model
     public const SWITCH_ON = 1;
     // Laravel builder basic model switch [off]
     public const SWITCH_OFF = 2;
-    
+
 }

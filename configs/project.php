@@ -6,6 +6,8 @@
  * Originate: YunniTec <https://www.yunnitec.com/>
  */
 
+//__DEFAULT_USE_USAGE__
+
 return [
 
     /*
@@ -20,14 +22,14 @@ return [
     'domains' => [
 
         // Custom your project domains
-
-        'api' => env('DOMAIN_OF_WORKSTATION', 'https://api.domain.com'),
-        'www' => env('DOMAIN_OF_WWW', 'https://www.domain.com'),
-        'h5' => env('DOMAIN_OF_H5', 'https://m.domain.com'),
-        'app' => env('DOMAIN_OF_APP', 'https://app.domain.com'),
-        'open' => env('DOMAIN_OF_OPEN', 'https://open.domain.com'),
-        'workstation' => env('DOMAIN_OF_WORKSTATION', 'https://ws.domain.com'),
-        'console' => env('DOMAIN_OF_CONSOLE', 'https://cons.domain.com'),
+        
+//        'api' => env('DOMAIN_OF_API', 'https://api.domain.com'),
+//        'www' => env('DOMAIN_OF_WWW', 'https://www.domain.com'),
+//        'h5' => env('DOMAIN_OF_H5', 'https://m.domain.com'),
+//        'app' => env('DOMAIN_OF_APP', 'https://app.domain.com'),
+//        'open' => env('DOMAIN_OF_OPEN', 'https://open.domain.com'),
+//        'workstation' => env('DOMAIN_OF_WORKSTATION', 'https://ws.domain.com'),
+//        'console' => env('DOMAIN_OF_CONSOLE', 'https://cons.domain.com'),
 
     ],
 

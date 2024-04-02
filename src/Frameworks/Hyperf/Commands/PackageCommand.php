@@ -5,6 +5,8 @@ namespace Abnermouke\Supports\Frameworks\Hyperf\Commands;
 use Abnermouke\Supports\Assists\File;
 use Hyperf\Command\Command;
 use Hyperf\Stringable\Str;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Output\OutputInterface;
 use function Hyperf\Config\config;
 
 /**
@@ -33,8 +35,8 @@ class PackageCommand extends Command
         '__DB_PREFIX__' => '',
         '__DATA_CACHE_NAME__' => '',
         '__DATA_CACHE_EXPIRE_SECOND__' => 0,
+        '__DATA_CACHE_DRIVER__' => 'default',
         '__DB_CONNECTION__' => '',
-        '__DATA_CACHE_DRIVER__' => '',
         '__DICTIONARY__' => ''
     ];
 
@@ -56,8 +58,8 @@ class PackageCommand extends Command
             '__AUTHOR__' => data_get($config, 'author', 'Abnermouke'),
             '__AUTHOR_CONTACT_EMAIL' => data_get($config, 'author_email', 'abnermouke@outlook.com'),
             '__ORIGINATE__' => data_get($config, 'original', 'Yunni Network Technology Co., Ltd. '),
-            '__DB_CONNECTION__' => data_get($config, 'database_connection', 'mysql'),
-            '__DATA_CACHE_DRIVER__' => data_get($config, 'cache_driver', 'file'),
+            '__DB_CONNECTION__' => data_get($config, 'database_connection', 'default'),
+            '__DATA_CACHE_DRIVER__' => data_get($config, 'cache_driver', 'default'),
         ];
         //初始化配置
         $this->tplParams = array_merge($this->tplParams, $default_params);
@@ -70,7 +72,7 @@ class PackageCommand extends Command
      * @Time 2024-04-02 11:00:50
      * @return int
      */
-    public function handle()
+    public function execute(InputInterface $input, OutputInterface $output): int
     {
         //获取生成文件包统一名称
         $this->tplParams['__NAME__'] = $this->tplParams['__MIGRATION_NAME__'] = $name = $this->output->ask('请输入当前表名，例如：admins');
@@ -100,6 +102,15 @@ class PackageCommand extends Command
         $this->makeRepository();
         //生成服务容器
         $this->makeService();
+        //询问是否生成数据缓存
+        if ($this->confirm('是否生成数据缓存文件？', true)) {
+            //设置基础缓存名
+            $this->tplParams['__DATA_CACHE_NAME__'] = $this->ask('您可以自定义当前数据缓存名，默认为：[ '. (($dictionary ? strtolower(str_replace('\\', ':', $dictionary)).':' : '').$name.'_data_cache').' ]，如需更改，请输入您要使用的缓存名！', (($dictionary && !empty($dictionary) ? strtolower(str_replace('\\', ':', $dictionary)).':' : '').$name.'_data_cache'));
+            //设置缓存过期时间，随机1小时-一天
+            $this->tplParams['__DATA_CACHE_EXPIRE_SECOND__'] = $this->ask('您可以自定义数据缓存过期时间（单位：s）,系统将默认设定为 1 小时至一天的随机时间过期，您也可以自定义，0 为永远不过期，请输入当前数据缓存的过期时间！', (string)rand(3600, 86400));
+            //生成数据缓存文件
+            $this->makeDataCache();
+        }
         //输出信息
         $this->output->write('Abnermouke Supports Packages Create Success, Make it awesome!', true);
         //返回成功
@@ -118,6 +129,41 @@ class PackageCommand extends Command
     {
         //返回APP目录地址
         return BASE_PATH.'/app/'.$path;
+    }
+
+    /**
+     * 创造缓存
+     * @Author Abnermouke <abnermouke@outlook.com | yunnitec@outlook.com>
+     * @Company Chongqing Yunni Network Technology Co., Ltd.
+     * @Time 2024-04-02 15:19:09
+     * @return true
+     */
+    private function makeDataCache()
+    {
+        //询问获取数据库链接信息
+        $this->tplParams['__DATA_CACHE_DRIVER__'] = $this->choice('请选择当前缓存链接时使用的链接信息！', array_keys(config('cache')), 'default');
+        //整理目录
+        $dataCacheDirectory = $this->getAppPath('Handler/Cache/Data'.str_replace('\\', '/', $this->tplParams['__DICTIONARY__']));
+        //判断目录是否存在
+        if (!File::isDirectory($dataCacheDirectory)) {
+            //创建目录
+            File::makeDirectory($dataCacheDirectory, 0777, true, true);
+        }
+        //整理路径
+        $dataCachePath = $this->getAppPath('Handler/Cache/Data'.str_replace('\\', '/', $this->tplParams['__DICTIONARY__']).'/'.$this->tplParams['__LOWER_CASE_NAME__'].'CacheHandler.php');
+        //判断文件地址
+        if (file_exists($dataCachePath) && !$this->confirm('数据缓存 ['.$dataCachePath.'] 已存在，是否覆盖写入？')) {
+            //直接返回
+            return true;
+        }
+        //获取模版内容
+        $content = $this->getTplContent('data_cache');
+        //内容存在
+        if (!empty($content)) {
+            //设置内容
+            $this->putContent($dataCachePath, $content);
+        }
+        return true;
     }
 
     /**

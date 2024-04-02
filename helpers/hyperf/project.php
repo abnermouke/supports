@@ -2,6 +2,22 @@
 
 declare(strict_types=1);
 
+if (!function_exists('format_datetime')) {
+    /**
+     * 格式化日期时间
+     * @Author Abnermouke <abnermouke@outlook.com | yunnitec@outlook.com>
+     * @Company Chongqing Yunni Network Technology Co., Ltd.
+     * @Time 2024-02-18 23:50:03
+     * @param string $format
+     * @param mixed $time
+     * @return bool|string
+     */
+    function format_datetime(string $format = 'Y-m-d H:i:s', mixed $time = false): bool|string
+    {
+        //返回格式化日期时间
+        return \Abnermouke\Supports\Library\HelperLibrary::formatDateTime($time, $format);
+    }
+}
 
 if (!function_exists('set_global_data')) {
     /**

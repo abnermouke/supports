@@ -11,6 +11,8 @@ namespace App\Interfaces{__DICTIONARY__}\Services;
 
 use Abnermouke\Supports\Frameworks\Hyperf\Modules\BaseService;
 use Hyperf\HttpServer\Contract\RequestInterface as Request;
+use Hyperf\Di\Annotation\Inject;
+use Hyperf\Validation\ValidatorFactory;
 
 /**
  * {__DATA_NAME__}接口逻辑服务容器
@@ -19,6 +21,9 @@ use Hyperf\HttpServer\Contract\RequestInterface as Request;
 */
 class {__LOWER_CASE_NAME__}InterfaceService extends BaseService
 {
+
+    #[Inject(required: false)]
+    protected ValidatorFactory $validatorFactory;
 
     /**
     * 引入父级构造

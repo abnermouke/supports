@@ -56,5 +56,21 @@ if (!function_exists('proxy_assets')) {
     }
 }
 
+if (!function_exists('format_datetime')) {
+    /**
+     * 格式化日期时间
+     * @Author Abnermouke <abnermouke@outlook.com | yunnitec@outlook.com>
+     * @Company Chongqing Yunni Network Technology Co., Ltd.
+     * @Time 2024-02-18 23:50:03
+     * @param string $format
+     * @param mixed $time
+     * @return bool|string
+     */
+    function format_datetime(string $format = 'Y-m-d H:i:s', mixed $time = false): bool|string
+    {
+        //返回格式化日期时间
+        return \Abnermouke\Supports\Library\HelperLibrary::formatDateTime($time, $format);
+    }
+}
 
 // 其他项目自定义辅助函数

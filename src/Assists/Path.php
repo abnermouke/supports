@@ -107,6 +107,9 @@ class Path
         } elseif (Framework::thinkphp()) {
             //整理路径
             $path = self::target('runtime', 'logger');
+        } elseif (Framework::hyperf()) {
+            //整理路径
+            $path = self::target('runtime', 'logger');
         } else {
             //整理路径
             $path = self::target('logger');

@@ -37,6 +37,19 @@ class Framework
     }
 
     /**
+     * 判断是否为hyperf框架
+     * @Author Abnermouke <abnermouke@outlook.com | yunnitec@outlook.com>
+     * @Originate in YunniTec <https://www.yunnitec.com/>
+     * @Time 2023-04-18 17:31:09
+     * @return bool
+     */
+    public static function hyperf()
+    {
+        //判断是否存在laravel
+        return self::check('hyperf/framework');
+    }
+
+    /**
      * 检测是否为指定框架
      * @Author Abnermouke <abnermouke@outlook.com | yunnitec@outlook.com>
      * @Originate in YunniTec <https://www.yunnitec.com/>

@@ -6,6 +6,7 @@ namespace Abnermouke\Supports\Frameworks\Hyperf;
 
 use Abnermouke\Supports\Frameworks\Hyperf\Commands\InterfaceCommand;
 use Abnermouke\Supports\Frameworks\Hyperf\Commands\PackageCommand;
+use Abnermouke\Supports\Frameworks\Hyperf\Commands\SupportsCommand;
 
 class ConfigProvider
 {
@@ -14,6 +15,7 @@ class ConfigProvider
     {
         return [
             'commands' => [
+                SupportsCommand::class,
                 InterfaceCommand::class,
                 PackageCommand::class
             ],
