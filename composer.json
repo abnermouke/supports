@@ -34,5 +34,10 @@
         "post-autoload-dump": [
             "Abnermouke\\Supports\\AbnermoukeSupportsEvents::autoload"
         ]
+    },
+    "extra": {
+        "hyperf": {
+            "config": "Abnermouke\\Supports\\Frameworks\\Hyperf\\ConfigProvider"
+        }
     }
 }

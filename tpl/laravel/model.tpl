@@ -14,7 +14,7 @@ use Abnermouke\Supports\Frameworks\Laravel\Modules\BaseModel;
 /**
  * {__TABLE_NAME__}
  * Class {__CASE_NAME__}
- * @package App\Model{__DICTIONARY__}
+ * @package App\Models{__DICTIONARY__}
 */
 class {__CASE_NAME__} extends BaseModel
 {
