@@ -365,10 +365,10 @@ class HelperLibrary
      * @return string
      * @throws \Exception
      */
-    public static function hideString($string, $replace = '*')
+    public static function hideString($string, $replace = '*', $type = 'string')
     {
         //判断是否为邮箱
-        if (ValidateLibrary::email($string)) {
+        if (ValidateLibrary::email($string) || $type == 'email') {
             //拆分号码
             $email_array = explode("@", $string);
             //获取前缀
@@ -379,9 +379,12 @@ class HelperLibrary
             $number = preg_replace('/([\d\w+_-]{0,100})@/', (str_repeat($replace, 3).'@'), $string, -1, $count);
             //组合信息
             $rs = $prefix . $number;
-        } elseif (ValidateLibrary::bankCard($string)) {
+        } elseif (ValidateLibrary::idCard($string) || $type == 'idcard') {
             //直接处理
             $rs = substr($string, 0, 4) . str_repeat($replace, strlen($string)-5) . substr($string, -4);
+        } elseif (ValidateLibrary::bankCard($string) || $type == 'bankcard') {
+            //直接处理
+            $rs = join(" ", str_split(substr($string, 0, 4) . str_repeat($replace, strlen($string)-5) . substr($string, -4), 4));
         } else {
             //直接处理
             $rs = substr($string, 0, 3) . str_repeat($replace, strlen($string)-4) . substr($string, -1);
