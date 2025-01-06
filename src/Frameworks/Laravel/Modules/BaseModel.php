@@ -41,4 +41,6 @@ class BaseModel extends Model
     // Laravel builder basic model switch [off]
     public const SWITCH_OFF = 2;
 
+
+
 }

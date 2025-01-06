@@ -97,6 +97,8 @@ class InterfaceCommands extends Command
         $this->tplParams['__DATA_NAME__'] = $dataName = intval($ret) >= 1 ? $matched[1] : $tableName;
         //生成服务容器
         $this->makeInterface();
+        //生成钩子
+        $this->makeHook();
         //输出信息
         $this->output->write('Easy Builder Interfaces Create Success, Make it awesome!', true);
     }
@@ -150,6 +152,39 @@ class InterfaceCommands extends Command
         if (!empty($content)) {
             //设置内容
             $this->putContent($interfaceControllerPath, $content);
+        }
+        return true;
+    }
+
+    /**
+     * 创建钩子
+     * @Author Abnermouke <abnermouke@outlook.com | yunnitec@outlook.com>
+     * @Company Chongqing Yunni Network Technology Co., Ltd.
+     * @Time 2025-01-05 15:12:01
+     * @return true
+     */
+    private function makeHook()
+    {
+        //整理钩子目录
+        $hookeDirectory = app_path('Hooks'.str_replace('\\', '/', $this->tplParams['__DICTIONARY__']));
+        //判断目录是否存在
+        if (!File::isDirectory($hookeDirectory)) {
+            //创建目录
+            File::makeDirectory($hookeDirectory, 0777, true, true);
+        }
+        //整理路径
+        $hookPath = app_path('Hooks'.str_replace('\\', '/', $this->tplParams['__DICTIONARY__']).'/'.$this->tplParams['__LOWER_CASE_NAME__'].'Hook.php');
+        //判断文件地址
+        if (file_exists($hookPath) && !$this->confirm('钩子模版 ['.$hookPath.'] 已存在，是否覆盖写入？')) {
+            //直接返回
+            return true;
+        }
+        //获取模版内容（service）
+        $content = $this->getTplContent('hook');
+        //内容存在
+        if (!empty($content)) {
+            //设置内容
+            $this->putContent($hookPath, $content);
         }
         return true;
     }
