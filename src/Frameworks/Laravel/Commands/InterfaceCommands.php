@@ -166,11 +166,11 @@ class InterfaceCommands extends Command
     private function makeHook()
     {
         //整理钩子目录
-        $hookeDirectory = app_path('Hooks'.str_replace('\\', '/', $this->tplParams['__DICTIONARY__']));
+        $hookDirectory = app_path('Hooks'.str_replace('\\', '/', $this->tplParams['__DICTIONARY__']));
         //判断目录是否存在
-        if (!File::isDirectory($hookeDirectory)) {
+        if (!File::isDirectory($hookDirectory)) {
             //创建目录
-            File::makeDirectory($hookeDirectory, 0777, true, true);
+            File::makeDirectory($hookDirectory, 0777, true, true);
         }
         //整理路径
         $hookPath = app_path('Hooks'.str_replace('\\', '/', $this->tplParams['__DICTIONARY__']).'/'.$this->tplParams['__LOWER_CASE_NAME__'].'Hook.php');
